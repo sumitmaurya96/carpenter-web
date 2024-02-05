@@ -1,0 +1,18 @@
+.header{
+    height: 80px;
+    &--nav{
+    &--menu{
+        &-item{
+            list-style: none;
+            text-decoration: none;
+            color: $white;
+            margin-left: 35px;
+        }
+    }
+}
+}
+.active-header{
+    border-radius: 20px;
+    border: 1px solid white;
+    padding: 8px 15px;
+}

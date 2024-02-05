@@ -1,0 +1,20 @@
+.login{
+    width: 500px;
+    height: 300px;
+
+    input{
+    width: 60%;
+    margin-bottom: 25px;
+    border: none !important;
+    border-bottom: 1px solid $grey !important;
+    }
+    .eye-icon{
+        right: 100px;
+        top: 0;
+    }
+    .login--btn{
+        background-color: $maroon;
+        color: $white;
+        width: 60%;
+    }
+}

@@ -1,0 +1,25 @@
+.order{
+    input{
+        margin-top: 50px;
+        width: 60%;
+        padding: 15px;
+        border-radius: 20px;
+        border: 1px solid $maroon;
+        
+    }
+    .search-icon{
+        right: 260px;
+        bottom: 12px;
+    }
+    &--card{
+
+       &-list{
+        width: 370px;
+        height: 300px;
+       }
+    }
+    &--pagination{
+        display: flex !important;
+        justify-content: center !important;
+    }
+}
