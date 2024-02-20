@@ -1,17 +1,45 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { ApplicationCtx } from '../../context/ApplicatonCtx';
 import Forget from './Forget';
+import { _adminLogin } from '../../network/auth';
 
 const Login = () => {
+  const [login, setLogin] = useState({
+    email: "",
+    password: ""
+  });
     const [forgetPass, setForgetPass] = useState(false);
   const {isUserLoggedIn, setIsUserLoggedIn} = useContext(ApplicationCtx);
 
-  const handleLogin = () => {
-    setIsUserLoggedIn(!isUserLoggedIn);
+  useEffect(() => {
+    console.log({login});
+  }, [login])
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    _adminLogin({ email: login.email, password: login.password })
+    .then(({ data, success, message })=>{
+      setIsUserLoggedIn(true);
+    })
+    .catch((error)=>{
+      console.log("Login faild", error );
+    });
   }
+
   const handleForget =()=>{
     setForgetPass(true);
+  }
+
+  const handleInputChange = (e) => {
+
+    console.log({e});
+    setLogin((prevState) => {
+      return {
+        ...prevState,
+        [e.target.name]: e.target.value
+      }
+    })
   }
 
   return (
@@ -19,16 +47,16 @@ const Login = () => {
       {forgetPass? <Forget/>:
 
      <div className='container--responsive flex flex--justify-content-center flex--align-items-center'>
-     <div className="login bg--shadow bg--radius mt--100 flex flex--direction-column flex--justify-content-center flex--align-items-center">
-         <input type="text" name='username' placeholder='Enter email or username' className=''/>
+     <form className="login bg--shadow bg--radius mt--100 flex flex--direction-column flex--justify-content-center flex--align-items-center">
+         <input type="text" name='email' placeholder='Enter email' className='' onChange={handleInputChange}/>
          <div className="position--relative width--column-one flex flex--justify-content-center">
-         <input type="text" name='username' placeholder='password'className=''/>
+         <input type="text" name='password' placeholder='password' className='' onChange={handleInputChange}/>
          <BsFillEyeSlashFill  className='position--absolute eye-icon'/>
          </div>
          <span className='color--grey' onClick={handleForget}>Forget Password?</span>
-         <button className='bg--radius pd--10 login--btn fs--20 mt--30' onClick={handleLogin}>Login</button>
+         <button type='submit' className='bg--radius pd--10 login--btn fs--20 mt--30' onClick={handleLogin}>Login</button>
 
-     </div>
+     </form>
    </div>
 }
    </>

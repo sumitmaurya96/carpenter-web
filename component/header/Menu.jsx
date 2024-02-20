@@ -6,9 +6,9 @@ const Menu = () => {
     <ul className='header--nav--menu flex flex--justify-content-between flex--align-items-center '>
       {navList.map((listItem, index) => {
         return (
-          <>
+          <React.Fragment key={`menu-${index}`}>
             <Link href={`/${listItem.link}`} keys={index}> <li className={`header--nav--menu-item fs--22 ${listItem.active}`}>{listItem.name}</li></Link>
-          </>
+          </React.Fragment>
         )
       })}
 

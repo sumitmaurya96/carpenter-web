@@ -1,6 +1,10 @@
 import React from 'react'
 
 const ProfileWorker = () => {
+
+    const profile =()=>{
+        
+    }
     return (
         <div className='container--responsive flex flex--justify-content-center flex--align-items-center mt--100'>
             <div className="delete bg--shadow bg--radius font--center pd--20 font--center">

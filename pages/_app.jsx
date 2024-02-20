@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
     <ApplicationCtx.Provider value={{isUserLoggedIn, setIsUserLoggedIn}}>
     <Header />
     <Component {...pageProps} />
-    <Footer />
+    {/* <Footer /> */}
     </ApplicationCtx.Provider>
   </>
 }
