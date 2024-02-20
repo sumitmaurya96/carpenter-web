@@ -1,5 +1,5 @@
 import React from 'react'
-import ProfileWorker from '../../component/profileWorker'
+import ProfileWorker from '../../component/ProfileWorker'
 
 const ProfileMenu = () => {
   return (

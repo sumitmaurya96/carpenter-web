@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import Login from "../component/login/login"
+import Login from "../component/login/Login"
 import { ApplicationCtx } from '../context/ApplicatonCtx';
 import Order from './order/Order';
 

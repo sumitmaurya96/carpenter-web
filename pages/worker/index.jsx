@@ -1,5 +1,5 @@
 import React from 'react'
-import WorkerDetals from '../../component/worker/workerDetals'
+import WorkerDetals from '../../component/worker/WorkerDetals'
 
 const Workers = () => {
   return (

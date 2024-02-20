@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React, { useContext } from 'react'
-import Menu from './menu'
+import Menu from './Menu'
 import Link from 'next/link'
 import { ApplicationCtx } from '../../context/ApplicatonCtx'
 
