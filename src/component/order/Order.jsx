@@ -14,7 +14,6 @@ const Order = () => {
     const [token, setToken] = useState("");
 
     useEffect(() => {
-
         _getOrders().then((res) => {
             setOrders(res.data);
         })
