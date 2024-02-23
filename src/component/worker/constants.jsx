@@ -49,11 +49,6 @@ export const orderFormInputFields = [
         placeholder: 'customer name..'
     },
     {
-        field: 'email',
-        type: 'text',
-        placeholder: 'Enter email..'
-    },
-    {
         field: 'phone',
         type: 'text',
         placeholder: 'Enter mobile..'

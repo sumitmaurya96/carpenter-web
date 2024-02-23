@@ -1,11 +1,11 @@
 import axios from "axios";
 
 import { getBoFromResponse, getErrorBoFromResponse } from "../common/util";
-import { baseUrl } from "../config";
+import { config } from "../config";
 
 export const _adminLogin = async ({ email, password }) => {
   try {
-    const path = `${baseUrl}/auth/admin/login`;
+    const path = `${config.baseUrl}/auth/admin/login`;
     const requestBody = {
       email,
       password,

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ApplicationCtx } from "../context/ApplicatonCtx";
 import Login from "./login/Authentication";
-import Order from "./order/Order";
+import Order from "./order/Orders";
 
 const Home = () => {
   const { isUserLoggedIn, setIsUserLoggedIn } = useContext(ApplicationCtx);

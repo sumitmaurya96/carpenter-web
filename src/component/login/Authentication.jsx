@@ -18,7 +18,7 @@ const INITIAL_VISIBLE_PAGES_STATE = {
 
 const Authentication = () => {
   const [loginForm, setLoginFrom] = useState(INITIAL_LOGIN_FORM_STATE);
-
+  const [forgetPass, setForgetPass] = useState(false);
   const visiblePages = useState(INITIAL_VISIBLE_PAGES_STATE);
   const { isUserLoggedIn, setIsUserLoggedIn } = useContext(ApplicationCtx);
 
@@ -27,6 +27,7 @@ const Authentication = () => {
 
     _adminLogin({ email: loginForm.email, password: loginForm.password })
       .then(({ data, statusCode, message }) => {
+        console.log({ data });
         setIsUserLoggedIn(true);
       })
       .catch(({ statusCode, message, isRetriable }) => {
@@ -40,7 +41,7 @@ const Authentication = () => {
 
   const handleInputChange = (e) => {
     console.log({ e });
-    setLogin((prevState) => {
+    setLoginFrom((prevState) => {
       return {
         ...prevState,
         [e.target.name]: e.target.value,
@@ -63,4 +64,4 @@ const Authentication = () => {
   );
 };
 
-export default Login;
+export default Authentication;
