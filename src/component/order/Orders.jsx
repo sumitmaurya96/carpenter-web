@@ -4,15 +4,67 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { _getOrders } from "../../network/order";
+import NewPassword from "../login/NewPassword";
+import { _getEmployeeBulk } from "@/network/employee";
+import useCheckMobileScreen from "../../../hooks/useCheckMobileScreen";
 
 const Orders = () => {
+  const {isMobile, isIpad } = useCheckMobileScreen();
   const [orders, setOrders] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pageSize, setPageSize] = useState(3);
+  const [totalOrders, setTotalOrders] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
+  // useEffect(() => {
+  //   _getOrders(pageNumber, pageSize).then((res) => {
+  //     setOrders(res.data.orders);
+  //     setTotalOrders(res.data.totalCount);
+  //     setTotalPages(Math.ceil(res.data.totalCount/pageSize));
+  //   });
+  // }, []);
 
   useEffect(() => {
-    _getOrders().then((res) => {
-      setOrders(res.data);
+    _getOrders(pageNumber, pageSize).then((res) => {
+      const workerIds = res.data.orders.map((order) => {
+        return order.workers
+      }).reduce((acc, curr)=>{
+        return [...acc, ...curr]
+      }, []).map(worker => worker.workerId);
+
+
+      _getEmployeeBulk([...new Set(workerIds)])
+      .then(res => {
+        return res.data.employees.reduce((acc, curr) => {
+          return {
+            ...acc,
+            [curr.uuid]: curr
+          }
+        }, {});
+      })
+      .then(employees => {
+        console.log(employees);
+        const orders = res.data.orders.map(order => {
+          console.log(order);
+          return {
+            ...order,
+            workers: order.workers.map(worker => { 
+              return employees[worker.workerId] ? employees[worker.workerId] : []
+            })
+          }
+        });
+
+        setOrders(orders);
+        setTotalOrders(res.data.totalCount);
+        setTotalPages(Math.ceil(res.data.totalCount/pageSize));
+      })
     });
-  }, []);
+  }, [pageNumber])
+
+  const handlePageChange = (e, newPage) => {
+    console.log({e});
+    setPageNumber(newPage);
+  }
 
   return (
     <>
@@ -21,17 +73,17 @@ const Orders = () => {
           <input type="text" placeholder="search..." className="bg--shadow" />
           <BsSearch className="position--absolute search-icon" />
         </div>
-        <div className="order--card flex flex--justify-content-between flex--align-items-center mt--50">
-          {orders.map((order, index) => (
+        <div className={`order--card flex ${isMobile || isIpad ? "flex--direction-column": "flex--justify-content-between flex--align-items-center"} mt--50`}>
+          {orders?.map((order, index) => (
             <>
-              <div className="order--card-list bg--shadow bg--radius pd--15">
+              <div className="order--card-list bg--shadow bg--radius pd--15" key={`order-${index}`}>
                 <span className="flex flex--justify-content-between flex--align-items-center">
                   <span className="color--maroon fs--22">
                     {order.customerName}
                   </span>
                   <span>
                     <button className="bg--success pl--15 pr--15 bg--radius color--white mr--10">
-                      Edit
+                    <Link href={`/orders/${order.orderId}`}>Edit</Link>
                     </button>
                     <button className="bg--maroon pl--15 pr--15 bg--radius color--white">
                       Delete
@@ -58,7 +110,7 @@ const Orders = () => {
                       <>
                         <span className="flex flex--justify-content-between flex--align-items-center mt--10">
                           <span className="font--bold">Worker:-</span>
-                          <span>{emp.workerId}</span>
+                          <span>{emp.name}</span>
                         </span>
                       </>
                     ))}
@@ -90,10 +142,10 @@ const Orders = () => {
         <div className="mb--30 mt--40 order--pagination">
           <Stack spacing={2}>
             <Pagination
-              count={10} // Set the total number of pages
-              page={1} // Set the current active page
-              // onChange={handlePageChange}  // Callback function for page change
-              color="primary" // Set the color for the pagination control
+              count={totalPages} 
+              page={pageNumber} 
+              onChange={handlePageChange}
+              color="primary" 
             />
           </Stack>
         </div>

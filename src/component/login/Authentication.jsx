@@ -28,10 +28,11 @@ const Authentication = () => {
     _adminLogin({ email: loginForm.email, password: loginForm.password })
       .then(({ data, statusCode, message }) => {
         console.log({ data });
+        localStorage.setItem("token", data.token);
         setIsUserLoggedIn(true);
       })
       .catch(({ statusCode, message, isRetriable }) => {
-        console.log("Login faild", error);
+
       });
   };
 

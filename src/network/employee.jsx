@@ -1,19 +1,60 @@
 import axios from "axios"
+import {config}  from "../config"
 
-
-export const _addEmployee = async()=>{
+export const _addEmployee = async( {payload} )=>{
    try{
-    const res = await axios.post("http://localhost:8000/admin/add-employee");
-    return res.data;
+    const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type":"application/json"
+
+    }
+    console.log(" this is employee service",payload);
+    const response = await axios.post(
+        `${config.baseUrl}/admin/add-employee`,
+        payload,
+        { headers }
+      );
+    return response.data;
+
    }catch(error){
     console.log(error);
    }
 }
 
 
-export const _getEmployee = async()=>{
+export const _getEmployee = async(pageNumbar, pageSize)=>{
     try{
-        const res = await axios.get("http://localhost:8000/admin/get-employee?skip=0&limit=10");
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type":"application/json"
+    
+        }
+        const res = await axios.get(`${config.baseUrl}/admin/get-employee?pageNumber=${pageNumbar}&pageSize=${pageSize}`,
+        { headers: headers }
+        );
+        return res.data;
+    }catch(error){
+        console.log(error);
+    }
+}
+
+export const _getEmployeeBulk = async(workerIds)=>{
+    try{
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type":"application/json"
+    
+        }
+
+        const payload = { workerIds };
+
+        console.log(payload);
+
+        const res = await axios.post(
+            `${config.baseUrl}/admin/get-employee/bulk`,
+            payload,
+        { headers: headers }
+        );
         return res.data;
     }catch(error){
         console.log(error);

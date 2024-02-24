@@ -10,7 +10,7 @@ export const employeeFormInputFields = [
         placeholder: 'Enter your email..'
     },
     {
-        field: 'mobile',
+        field: 'phone',
         type: 'text',
         placeholder: 'Enter your mobile..'
     },
@@ -18,6 +18,11 @@ export const employeeFormInputFields = [
         field: 'disignation',
         type: 'text',
         placeholder: 'Enter your disignation..'
+    },
+    {
+        field: 'password',
+        type: 'text',
+        placeholder: 'Enter your password..'
     },
     {
         field: 'address',
@@ -41,55 +46,4 @@ export const employeeFormInputFields = [
     }
 ]
 ;
-
-export const orderFormInputFields = [
-    {
-        field: 'customerName',
-        type: 'text',
-        placeholder: 'customer name..'
-    },
-    {
-        field: 'phone',
-        type: 'text',
-        placeholder: 'Enter mobile..'
-    },
-    {
-        field: 'worker',
-        type: 'text',
-        placeholder: 'Enter worker name..'
-    },
-    {
-        field: 'items',
-        type: 'number',
-        placeholder: 'No. of work'
-    },
-    {
-        field: 'visitTime',
-        type: 'date',
-        placeholder: 'Visit time'
-    },
-    {
-        field: 'address',
-        type: 'text',
-        placeholder: 'Enter address..'
-    },
-    {
-        field: 'landmark',
-        type: 'text',
-        placeholder: 'Enter landmark..'
-    },
-    {
-        field: 'pincode',
-        type: 'text',
-        placeholder: 'Enter pincode..'
-    },
-    {
-        field: 'city',
-        type: 'text',
-        placeholder: 'Enter city..'
-    }
-    
-]
-
-
 

@@ -11,6 +11,9 @@
     .eye-icon{
         right: 100px;
         top: 0;
+        @include max(1024) {
+            right: 70px;
+        }
     }
     .login--btn{
         background-color: $maroon;

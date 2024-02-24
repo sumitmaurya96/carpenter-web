@@ -15,20 +15,21 @@ export const _addOrders = async ({ payload }) => {
       payload,
       { headers }
     );
-    return response.data, console.log("responce from network", response);
+    return response.data,
+     console.log("responce from network", response);
   } catch (error) {
     console.log({ error });
   }
 };
 
-export const _getOrders = async () => {
+export const _getOrders = async (pageNumbar, pageSize) => {
   try {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
     };
     const response = await axios.get(
-      "http://3.109.59.212:8000/order/get-order?skip=0&limit=10",
+      `${config.baseUrl}/order/get-order?pageNumber=${pageNumbar}&pageSize=${pageSize}`,
       { headers: headers }
     );
     return response.data;
@@ -52,10 +53,14 @@ export const _getOrderById = async (id) => {
   }
 };
 
-export const _updateOrderById = async () => {
+export const _updateOrderById = async (id, payload) => {
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    "Content-Type": "application/json",
+  };
   try {
     const response = await axios.patch(
-      "http://3.109.59.212:8000/order/update-order/6446fabf-b120-4bbf-bfed-62b7fcbf0497"
+      `${config.baseUrl}/order/update-order/${id}`, payload, {headers: headers}
     );
     return response.data;
   } catch (error) {

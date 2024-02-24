@@ -1,12 +1,15 @@
 .header{
     height: 80px;
+
     &--nav{
     &--menu{
         &-item{
             list-style: none;
             text-decoration: none;
-            color: $white;
             margin-left: 35px;
+            @include max(1024) {
+                margin-left: 15px;
+            }
         }
     }
 }

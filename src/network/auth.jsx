@@ -41,9 +41,15 @@ export const _verifyOTP = async () => {
 
 export const _adminProfile = async () => {
   try {
-    const profile = `${baseUrl}/auth/admin/profile`;
-    const res = await axios.get(profile);
-    return res;
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type":"application/json"
+  }
+  const response = await axios.get(
+    `${config.baseUrl}/auth/admin/profile`,
+    { headers }
+  );
+    return response.data;
   } catch (error) {
     console.log(error);
   }

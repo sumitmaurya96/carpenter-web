@@ -1,9 +1,9 @@
 import React from 'react'
-import ProfileWorker from '../../component/ProfileWorker'
+import ProfileAdmin from '../../component/ProfileAdmin'
 
 const ProfileMenu = () => {
   return (
-     <ProfileWorker/>
+     <ProfileAdmin/>
     )
 }
 

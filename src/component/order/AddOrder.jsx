@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { _addOrders, _getOrderById } from "../../network/order";
+import { _addOrders, _getOrderById, _updateOrderById } from "../../network/order";
 import { orderFormInputFields } from "./constants";
-import MultipleCheckDropdown from "../shared/MultipleCheckDropdown";
 
 const AddOrder = () => {
   const router = useRouter();
@@ -117,9 +116,7 @@ const AddOrder = () => {
     }
   };
 
-  const handleSubmitOrder = (e) => {
-    e.preventDefault();
-    console.log(workerForm, "thi si data");
+  const addOrder = () => {
     const payload = {
       customerName: workerForm.customerName,
       visitTime: 1708426649000,
@@ -136,6 +133,35 @@ const AddOrder = () => {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  const editOrder = () => {
+    const payload = {
+      customerName: workerForm.customerName,
+      visitTime: 1708426649000,
+      phone: workerForm.phone,
+      workers: [],
+      items: [],
+      address: `${workerForm.address}, ${workerForm.landmark}, ${workerForm.city}, ${workerForm.pincode}`,
+    };
+
+    _updateOrderById(router.query.orderId, payload)
+      .then((response) => {
+        console.log("form data payload", response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  const handleSubmitOrder = (e) => {
+    e.preventDefault();
+    if(mode==='Add') {
+      addOrder()
+    } else if(mode==='Edit') {
+      editOrder();
+    }
+    
   };
 
   return (
@@ -146,7 +172,6 @@ const AddOrder = () => {
             className="flex flex--wrap flex--justify-content-between flex--align-items-center pd--20"
             onSubmit={handleSubmitOrder}
           >
-            <MultipleCheckDropdown />
             {orderFormInputFields.map((input, index) => (
               <>
                 <div className="width--column-40" style={{ height: "64px" }}>

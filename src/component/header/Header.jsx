@@ -3,9 +3,11 @@ import React, { useContext } from 'react'
 import Menu from './Menu'
 import Link from 'next/link'
 import { ApplicationCtx } from '../../context/ApplicatonCtx'
+import useCheckMobileScreen from '../../../hooks/useCheckMobileScreen'
+import MobileMenu from './MobileMenu'
 
 const Header = () => {
-
+  const {isMobile, isIpad } = useCheckMobileScreen();
   const {isUserLoggedIn} = useContext(ApplicationCtx)
 
   return (
@@ -14,7 +16,7 @@ const Header = () => {
       <Link href={"/"}>
     <Image src="/assets/images/logo.png" width={100} height={100} alt='' className='mt--10' />
     </Link>
-  {isUserLoggedIn && <Menu/>}
+  {isUserLoggedIn &&  (isMobile || isIpad? <MobileMenu/> :<Menu/>)}
    </div>
    </div>
   )

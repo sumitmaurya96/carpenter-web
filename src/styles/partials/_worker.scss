@@ -5,17 +5,28 @@
         padding: 15px;
         border-radius: 20px;
         border: 1px solid $maroon;
+        @include max(1024) {
+            width: 100%;
+        }
         
     }
     .search-icon{
         right: 260px;
         bottom: 12px;
+        @include max(1024) {
+            right: 15px;
+        bottom: 13px;
+        }
     }
     &--card{
 
        &-list{
         width: 370px;
         height: 250px;
+        @include max(1024) {
+            width: auto;
+            margin-top: 10px;
+        }
        }
     }
     &--pagination{
