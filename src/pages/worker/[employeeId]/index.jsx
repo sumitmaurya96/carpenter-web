@@ -1,8 +1,11 @@
+import AddEmp from '@/component/worker/AddEmp'
 import React from 'react'
 
 const EmployeeList = () => {
   return (
-    <div>EmployeeList</div>
+    <>
+    <AddEmp/>
+    </>
   )
 }
 

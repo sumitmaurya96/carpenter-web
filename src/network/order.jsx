@@ -67,3 +67,20 @@ export const _updateOrderById = async (id, payload) => {
     console.log(error);
   }
 };
+
+
+
+// export const _deleteOrderById = async (id, payload) => {
+//   const headers = {
+//     Authorization: `Bearer ${localStorage.getItem("token")}`,
+//     "Content-Type": "application/json",
+//   };
+//   try {
+//     const response = await axios.patch(
+//       `${config.baseUrl}/order/update-order/${id}`, payload, {headers: headers}
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };

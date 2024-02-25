@@ -5,6 +5,7 @@ import DeleteWorker from './DeleteWorker';
 import AddEmp from './AddEmp';
 import { _getEmployee } from '@/network/employee';
 import useCheckMobileScreen from '../../../hooks/useCheckMobileScreen';
+import Link from 'next/link';
 
 const WorkerDetals = () => {
     const [deleteEmp, setDeleteEmp] = useState(false);
@@ -57,7 +58,9 @@ const WorkerDetals = () => {
                     <span className='flex flex--justify-content-between flex--align-items-center'>
                         <span className='color--maroon fs--22'>{emp.name}</span>
                         <span>
-                            <button className='bg--success pl--15 pr--15 bg--radius color--white mr--10'>Edit</button>
+                            <button className='bg--success pl--15 pr--15 bg--radius color--white mr--10'>
+                            <Link href={`/orders/${employee.orderId}`}>Edit</Link>
+                            </button>
                             <button className='bg--maroon pl--15 pr--15 bg--radius color--white' onClick={handleDelete}>Delete</button>
                         </span>
                     </span>
@@ -94,8 +97,9 @@ const WorkerDetals = () => {
             />
           </Stack>
             </div>
-
+            <Link href={`/worker/add`}>
             <button className='bg--maroon bg--radius bg--shadow pd--10 fs--20 width--column-40 color--white'onClick={handleAdd}>Add Employee</button>
+           </Link>
         </div>
         }
         </>

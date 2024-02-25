@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { _addOrders, _getOrderById } from "../../network/order";
 import { employeeFormInputFields } from "./constants";
-import { _addEmployee } from "../../network/employee";
+import { _addEmployee, _updateEmployeeById } from "../../network/employee";
 
 const AddEmp = () => {
   const router = useRouter();
@@ -163,9 +163,27 @@ const AddEmp = () => {
     }
   };
 
-  const handleSubmitEmp = (e) => {
-    e.preventDefault();
-    console.log(empForm, "thi si data");
+const addEmp =()=>{
+  const payload = {
+    name: empForm.name,
+    phone:empForm.phone,
+    email: empForm.email,
+    password: empForm.password,
+    disignation:empForm.disignation,
+    address: `${empForm.address}, ${empForm.landmark}, ${empForm.city}, ${empForm.pincode}`,
+  };
+
+  _addEmployee({ payload })
+    .then((response) => {
+      console.log("employee form data payload", response);
+      router.push("/worker")
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+  const editEmployee = () => {
     const payload = {
       name: empForm.name,
       phone:empForm.phone,
@@ -175,13 +193,23 @@ const AddEmp = () => {
       address: `${empForm.address}, ${empForm.landmark}, ${empForm.city}, ${empForm.pincode}`,
     };
 
-    _addEmployee({ payload })
+    _updateEmployeeById(router.query.orderId, payload)
       .then((response) => {
         console.log("employee form data payload", response);
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  
+  const handleSubmitEmp = (e) => {
+    e.preventDefault();
+      if(mode==='Add') {
+        addEmp();
+      } else if(mode==='Edit') {
+        editEmployee();
+      }
   };
 
   return (

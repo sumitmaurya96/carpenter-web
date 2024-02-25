@@ -24,7 +24,7 @@
         height: 300px;
         @include max(1024) {
             width: auto;
-            margin-top: 10px;
+            margin: 10px auto;
         }
        }
     }
