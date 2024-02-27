@@ -65,7 +65,7 @@ const Orders = () => {
     console.log({e});
     setPageNumber(newPage);
   }
-
+  
   return (
     <>
       <div className="order container--responsive font--center">
@@ -76,7 +76,7 @@ const Orders = () => {
         <div className={`order--card flex ${isMobile || isIpad ? "flex--direction-column": "flex--justify-content-between flex--align-items-center"} mt--50`}>
           {orders?.map((order, index) => (
             <>
-              <div className="order--card-list bg--shadow bg--radius pd--15" key={`order-${index}`}>
+              <div className="order--card-list bg--shadow bg--radius pd--15" key={index}>
                 <span className="flex flex--justify-content-between flex--align-items-center">
                   <span className="color--maroon fs--22">
                     {order.customerName}

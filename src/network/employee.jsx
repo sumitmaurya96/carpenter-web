@@ -77,7 +77,7 @@ export const _updateEmployeeById = async (id, payload) => {
             "Content-Type": "application/json",
         };
         const response = await axios.patch(
-            `${config.baseUrl}admin/update-employee/${id}`, payload, { headers: headers }
+            `${config.baseUrl}/admin/update-employee/${id}`, payload, { headers: headers }
         );
 
         return response.data
@@ -87,10 +87,16 @@ export const _updateEmployeeById = async (id, payload) => {
     }
 }
 
-export const _deleteEmployeeById = async () => {
+export const _deleteEmployeeById = async (id) => {
     try {
-        const res = await axios.delete("http://localhost:8000/admin/delete-employee/0500b535-339f-4e42-8a6a-a835c0d0a7b3");
-        return res
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        };
+        const response = await axios.delete(
+            `${config.baseUrl}/admin/delete-employee/${id}`,{ headers: headers }
+        );
+        return response.data;
     } catch (error) {
         console.log(error);
     }
