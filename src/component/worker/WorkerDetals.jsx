@@ -40,8 +40,8 @@ const WorkerDetals = () => {
     }
 
     const handleDelete = (uuid) => {
-        setToDeleteEmp(uuid)
-        setDeleteEmp(true);
+        setToDeleteEmp(uuid);
+        setDeleteEmp(router.push('/worker/employeeId/delete'));
         // router.push('/worker/employeeId/delete');
 
     }
@@ -49,7 +49,7 @@ const WorkerDetals = () => {
     return (
         <>
 
-                    {deleteEmp ? <DeleteWorker uuid={toDeleteEmp}/> :
+                    {toDeleteEmp ? <DeleteWorker uuid={toDeleteEmp}/> :
                         <div className="worker container--responsive font--center">
                             <div className="font--center position--relative fs--20">
                                 <input type="text" placeholder='search...' className='bg--shadow' />
@@ -68,11 +68,9 @@ const WorkerDetals = () => {
                                                     <button className='bg--success pl--15 pr--15 bg--radius color--white mr--10'>
                                                         <Link href={`/worker/${emp.uuid}`}>Edit</Link>
                                                     </button>
-                                                    
                                                     <button className='bg--maroon pl--15 pr--15 bg--radius color--white' onClick={() => handleDelete(emp.uuid)}>Delete
-                                                    {/* <Link href={`/worker/employeeId/delete`}> </Link> */}
-                                                    </button>
-
+                                                    {/* <Link href={`/worker/employeeId/delete`}> </Link>*/}
+                                                  </button>
                                                 </span>
                                             </span>
                                             <div className='width--column-90 mt--25'>

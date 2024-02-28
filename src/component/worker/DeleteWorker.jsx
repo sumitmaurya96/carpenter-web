@@ -7,7 +7,7 @@ const DeleteWorker = ({uuid}) => {
 
     const handleConflrmDelete=(e)=>{
     _deleteEmployeeById(uuid).then((res) => {
-        console.log(res, "hello bhaii respone aya kya");
+        console.log(uuid, "hello bhaii respone aya kya");
         router.push('/worker');
     });
 }

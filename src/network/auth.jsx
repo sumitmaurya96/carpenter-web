@@ -19,10 +19,15 @@ export const _adminLogin = async ({ email, password }) => {
   }
 };
 
-export const _sendOTP = async () => {
+export const _sendOTP = async ({ email, phone }) => {
   try {
-    const otpPath = `${baseUrl}/auth/admin/otp/send`;
-    const res = await axios.post(otpPath);
+    const otpPath = `${config.baseUrl}/auth/admin/otp/send`;
+    const requestBodyForget = {
+      email,
+      phone,
+    };
+    console.log("forget password auth", requestBodyForget)
+    const res = await axios.post(otpPath, requestBodyForget);
     return res;
   } catch (error) {
     console.log(error);
@@ -31,7 +36,7 @@ export const _sendOTP = async () => {
 
 export const _verifyOTP = async () => {
   try {
-    const verify = `${baseUrl}/auth/admin/otp/verify`;
+    const verify = `${config.baseUrl}/auth/admin/otp/verify`;
     const res = await axios.post(verify);
     return res;
   } catch (error) {
