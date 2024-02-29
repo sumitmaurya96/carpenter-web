@@ -7,6 +7,7 @@ import { _getOrders } from "../../network/order";
 import NewPassword from "../login/NewPassword";
 import { _getEmployeeBulk } from "@/network/employee";
 import useCheckMobileScreen from "../../../hooks/useCheckMobileScreen";
+import ModalPopup from "./ModelPopup";
 
 const Orders = () => {
   const {isMobile, isIpad } = useCheckMobileScreen();
@@ -15,6 +16,7 @@ const Orders = () => {
   const [pageSize, setPageSize] = useState(3);
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [openModel, setOpenModel] = useState(false);
 
   // useEffect(() => {
   //   _getOrders(pageNumber, pageSize).then((res) => {
@@ -31,7 +33,6 @@ const Orders = () => {
       }).reduce((acc, curr)=>{
         return [...acc, ...curr]
       }, []).map(worker => worker.workerId);
-
 
       _getEmployeeBulk([...new Set(workerIds)])
       .then(res => {
@@ -65,7 +66,14 @@ const Orders = () => {
     console.log({e});
     setPageNumber(newPage);
   }
-  
+
+  const hanldleModel=(order)=>{
+    setSelectedOrder(order);
+    setOpenModel(true)
+  }
+  const onCloseModal = () =>{
+    setOpenModel(false);
+    }
   return (
     <>
       <div className="order container--responsive font--center">
@@ -132,6 +140,7 @@ const Orders = () => {
                       <span className="font--bold">Status:-</span>
                       <span>{order.status}</span>
                     </span>
+              <button className="bg--maroon bg--radius bg--shadow pt--5 pb--5 pl--10 pr--10 fs--15 width--column-30 color--white mt--10" onClick={hanldleModel}> order Details</button>
                   </div>
                 </div>
               </div>
@@ -154,6 +163,7 @@ const Orders = () => {
           <Link href={`/orders/add`}>Add Order</Link>
         </button>
       </div>
+      <ModalPopup onCloseModal={onCloseModal} openModel={openModel}/>
     </>
   );
 };

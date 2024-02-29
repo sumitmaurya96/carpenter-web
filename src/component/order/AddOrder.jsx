@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { _addOrders, _getOrderById, _updateOrderById } from "../../network/order";
 import { orderFormInputFields } from "./constants";
+import Image from 'next/image'
+import { _getOrderItemsById } from "@/network/item";
 
 const AddOrder = () => {
   const router = useRouter();
@@ -26,6 +28,9 @@ const AddOrder = () => {
     worker: "",
     items: "",
   });
+  const [items, setItems] = useState([]);
+
+
 
   useEffect(() => {
     console.log({ router });
@@ -47,6 +52,10 @@ const AddOrder = () => {
             items: [],
           };
         });
+        _getOrderItemsById(res.data.orderId).then((res) => {
+          console.log({res});
+          setItems(res.data);
+        })
         console.log({ res });
       });
     }
@@ -116,6 +125,10 @@ const AddOrder = () => {
     }
   };
 
+  useEffect(() => {
+console.log({items});
+  }, [items])
+
   const addOrder = () => {
     const payload = {
       customerName: workerForm.customerName,
@@ -166,7 +179,7 @@ const AddOrder = () => {
 
   return (
     <>
-      <div className="container--responsive flex flex--justify-content-center flex--align-items-center mt--100">
+      <div className="container--responsive flex flex--justify-content-center flex--align-items-center mt--100" style={{gap: '20px'}}>
         <div className="employee bg--shadow bg--radius font--center">
           <form
             className="flex flex--wrap flex--justify-content-between flex--align-items-center pd--20"
@@ -202,6 +215,29 @@ const AddOrder = () => {
               {mode} Order
             </button>
           </form>
+        </div>
+        <div>
+        <h3>Item Details: </h3>
+        <div className="work-items-con" style={{height: '400px', overflow: 'scroll'}}>
+          {items && items.map((item) => (
+            <>
+            <div className="modal flex flex--justify-content-between flex--align-items-center" style={{gap: '20px'}}>
+                <img src={item.image} width={100} height={100} alt='' className='mt--10' />
+                <span>
+                <span className="color--maroon font--bold">{item.itemName}</span>
+                  {item.properties.map((property) => (
+                    <>
+                    <span className="flex flex--justify-content-between flex--align-items-center">
+                        <span>{property.key}:</span>
+                        <span> {property.value}</span>
+                    </span>
+                    </>
+                  ))}
+                </span>
+            </div>
+            </>
+          ))}
+        </div>
         </div>
       </div>
     </>
