@@ -218,19 +218,19 @@ console.log({items});
         </div>
         <div>
         <h3>Item Details: </h3>
-        <div className="work-items-con" style={{height: '400px', overflow: 'scroll'}}>
+        <div className="work-items-con" style={{height: '400px', overflow: 'scroll', width: '300px', padding: '20px'}}>
           {items && items.map((item) => (
             <>
             <div className="modal flex flex--justify-content-between flex--align-items-center" style={{gap: '20px'}}>
                 <img src={item.image} width={100} height={100} alt='' className='mt--10' />
                 <span>
-                <span className="color--maroon font--bold">{item.itemName}</span>
+                <div className="color--maroon font--bold" style={{background: 'light-gray', padding: '5px', marginBottom: '40px', borderRadius: '20px', border: '2px solid red', alignItems: 'center'}}>{item.itemName}</div>
                   {item.properties.map((property) => (
                     <>
-                    <span className="flex flex--justify-content-between flex--align-items-center">
+                    <div className="flex flex--justify-content-between flex--align-items-center">
                         <span>{property.key}:</span>
                         <span> {property.value}</span>
-                    </span>
+                    </div>
                     </>
                   ))}
                 </span>
