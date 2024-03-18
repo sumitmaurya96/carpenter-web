@@ -1,3 +1,3 @@
 export const config = {
-  baseUrl: "http://13.126.43.173:8000",
+  baseUrl: "https://service.shreeshree1008shreeswamikabirjimaharajparamhans.in",
 };
